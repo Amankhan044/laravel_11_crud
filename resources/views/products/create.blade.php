@@ -59,7 +59,7 @@
                     <div class="card-body">
                         <div class="mb-3">
                             <label class="form-label h5">Price</label>
-                            <input type="text" 
+                            <input type="number" 
                                 class="form-control form-control-lg @error('price') is-invalid @enderror" 
                                 placeholder="Price" name="price" value="{{ old('price') }}">
                             @error('price')
@@ -81,16 +81,32 @@
                     </div>
 
                     <div class="card-body">
-                        <div class="mb-3">
-                            <label class="form-label h5">Image</label>
-                            <input type="file" 
-                                class="form-control form-control-lg @error('image') is-invalid @enderror" 
-                                name="image">
-                            @error('image')
-                                <p class="invalid-feedback">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
+    <div class="mb-3">
+        <label class="form-label h5">Image</label>
+        <input type="file" class="form-control form-control-lg @error('image') is-invalid @enderror" 
+            name="image" id="imageInput" onchange="previewImage(event)">
+        <img id="imagePreview" src="" class="w-50 h-50 my-2 d-none" height="50" alt="Image Preview">
+        @error('image')
+            <p class="invalid-feedback">{{ $message }}</p>
+        @enderror
+    </div>
+</div>
+
+<script>
+    function previewImage(event) {
+        const input = event.target;
+        const preview = document.getElementById('imagePreview');
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.classList.remove('d-none');
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
 
                     <div class="card-body">
                         <div class="d-grid">

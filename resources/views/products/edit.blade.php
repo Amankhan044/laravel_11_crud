@@ -29,7 +29,7 @@
                     </div>
                 </div>
 
-                <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('products.update', $product->slug) }}" method="POST" enctype="multipart/form-data">
                     @method('put')
                     @csrf
 
@@ -85,7 +85,7 @@
                         <div class="mb-3">
                             <label class="form-label h5">Image</label>
                             <input type="file" 
-                                class="form-control form-control-lg @error('image', $product->image) is-invalid @enderror" 
+                                class="form-control form-control-lg @error('image',) is-invalid @enderror" 
                                 name="image">
                                 @if($product->image)
                                                 <img src="{{ asset('upload/products/' . $product->image) }}" class="w-50 h-50 my-2"  height="50" alt="Product Image">
